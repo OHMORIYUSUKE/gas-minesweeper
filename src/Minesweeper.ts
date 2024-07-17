@@ -15,6 +15,9 @@ export class Minesweeper {
     this.calculateNumbers();
   }
 
+  /**
+   * ランダムにボード上に地雷を配置します。
+   */
   private placeMines(): void {
     let placedMines = 0;
     while (placedMines < this.mines) {
@@ -27,7 +30,9 @@ export class Minesweeper {
     }
   }
 
-  // eslint-disable-next-line complexity
+  /**
+   * ボード上のすべてのセルに、周囲の地雷の数を計算して設定します。
+   */
   private calculateNumbers(): void {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
@@ -54,7 +59,11 @@ export class Minesweeper {
     }
   }
 
-  // eslint-disable-next-line complexity
+  /**
+   * 再帰的にセルを開いて、連鎖的にゼロセルを開きます。
+   * @param row - 開くセルの行番号
+   * @param col - 開くセルの列番号
+   */
   private floodFill(row: number, col: number): void {
     if (row < 0 || row >= this.rows || col < 0 || col >= this.cols || this.displayBoard[row]![col] !== "□") return;
     const cellValue = this.board[row]![col] as string;
@@ -71,6 +80,12 @@ export class Minesweeper {
     }
   }
 
+  /**
+   * 指定したセルを開きます。地雷がある場合はゲームオーバー。
+   * @param row - 開くセルの行番号
+   * @param col - 開くセルの列番号
+   * @returns セルを無事に開けたかどうかの結果。地雷があった場合は false、それ以外は true。
+   */
   private revealCell(row: number, col: number): boolean {
     if (this.board[row]![col] === "M") {
       this.displayBoard[row]![col] = "M";
@@ -85,6 +100,10 @@ export class Minesweeper {
     return true;
   }
 
+  /**
+   * ゲームの勝利条件を確認します。すべての非マインセルが開かれているかどうかをチェックします。
+   * @returns ゲームに勝った場合は true、それ以外は false。
+   */
   private checkWin(): boolean {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
@@ -96,6 +115,10 @@ export class Minesweeper {
     return true; // すべての非マインセルが開かれている
   }
 
+  /**
+   * ボードの指定された状態をコンソールに出力します。
+   * @param board - 出力するボード
+   */
   public printBoard(board: string[][]): void {
     for (const row of board) {
       console.log(row.join(" "));
@@ -103,6 +126,9 @@ export class Minesweeper {
     console.log(); // 空行
   }
 
+  /**
+   * すべてのセルを開いてボード全体を表示します。
+   */
   private revealAllCells(): void {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
@@ -111,6 +137,10 @@ export class Minesweeper {
     }
   }
 
+  /**
+   * プレイヤーの移動を処理し、ゲームを進行させます。
+   * @param moves - プレイヤーが行った移動のリスト（[行, 列] の配列）
+   */
   public play(moves: [number, number][]): void {
     for (const [row, col] of moves) {
       if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) {
