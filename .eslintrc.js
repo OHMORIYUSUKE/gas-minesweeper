@@ -2,7 +2,8 @@ module.exports = {
   env: {
     es6: true,
     node: true,
-    "googleappsscript/googleappsscript": true
+    "googleappsscript/googleappsscript": true,
+    jest: true
   },
   extends: ["standard", "eslint:recommended", "prettier"],
   globals: {

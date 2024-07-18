@@ -15,6 +15,15 @@ export class Minesweeper {
     this.calculateNumbers();
   }
 
+  // ゲッターメソッドを追加
+  public getBoard(): string[][] {
+    return this.board;
+  }
+
+  public getDisplayBoard(): string[][] {
+    return this.displayBoard;
+  }
+
   /**
    * ランダムにボード上に地雷を配置します。
    */
@@ -33,6 +42,7 @@ export class Minesweeper {
   /**
    * ボード上のすべてのセルに、周囲の地雷の数を計算して設定します。
    */
+  // eslint-disable-next-line complexity
   private calculateNumbers(): void {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
@@ -64,6 +74,7 @@ export class Minesweeper {
    * @param row - 開くセルの行番号
    * @param col - 開くセルの列番号
    */
+  // eslint-disable-next-line complexity
   private floodFill(row: number, col: number): void {
     if (row < 0 || row >= this.rows || col < 0 || col >= this.cols || this.displayBoard[row]![col] !== "□") return;
     const cellValue = this.board[row]![col] as string;
